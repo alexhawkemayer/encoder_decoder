@@ -1,0 +1,122 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+#include <string>
+
+// makes it so that "std::" doesn't have to be entered before the commands
+using namespace std;
+
+string phrase{};
+string input{};
+string e_phrase{};
+string d_phrase{};
+string alphabet{ "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" };
+string key{ "XZNLWEBGJHQDYVTKFUOMPCIASRxznlwebgjhqdyvtkfuompciasr" };
+
+void encoder();
+void decoder();
+void show();
+
+int main()
+{	
+	
+
+	do
+	{
+		// Menu
+		cout << "\nEncode- Encode a phrase." << endl;
+		cout << "Show- Show Encoded phrase." << endl;
+		cout << "Decode- Decode a phrase." << endl;
+		cout << "Show Decript- Show Decripted phrase." << endl;
+		cout << "Quit- Exit program.";
+
+		cout << "\n======================================" << endl;
+		cout << "What would you like to do? ";
+		getline(cin, input);
+
+		if (input == "Encode" || input == "encode")
+		{
+			encoder();
+		}
+
+		// If user inputs "Show" or "show"
+		else if (input == "Show" || input == "show")
+		{
+			show();
+		}
+
+		// If user inputs "Decode" or "decode"
+		else if (input == "Decode" || input == "decode")
+		{
+			decoder();
+		}
+
+		// If user inputs "Show Decript" or "show decript" it shows Decripted Phrase
+		else if (input == "Show Decript" || input == "show decript")
+		{
+			cout << d_phrase << endl;
+		}
+
+		// If user inputs "Quit" or "quit" it quits the application
+		else if (input == "Quit" || input == "quit")
+			cout << "Quitting..." << endl;
+
+	} while (input != "quit" && input != "Quit");
+	
+	// returning zero so that the code will run
+	return 0;
+}
+
+// Encodes Phrase
+void encoder()
+{
+	cout << "Enter a phrase: ";
+	getline(cin, phrase);
+	
+	for (size_t p{ 0 }; p < phrase.length(); ++p)
+	{
+		for (char p : phrase)
+		{
+			size_t position = alphabet.find(p);
+			if (position != string::npos)
+			{
+				char new_char{ key.at(position) };
+				e_phrase += new_char;
+			}
+			else
+				e_phrase += p;
+		}
+		break;
+	}
+}
+
+// Shows Encoded Phrase
+void show()
+{
+	cout << e_phrase << endl;
+}
+
+// Decodes Phrase
+void decoder()
+{
+	if (phrase.length() == 0)
+		cout << "There is nothing to decode" << endl;
+	else
+	{
+		for (size_t e{ 0 }; e < e_phrase.length(); ++e)
+		{
+			for (char e : e_phrase)
+			{
+				size_t position = key.find(e);
+				if (position != string::npos)
+				{
+					char new_char{ alphabet.at(position) };
+					d_phrase += new_char;
+				}
+				else
+					d_phrase += e;
+			}
+			break;
+		}
+	}
+}
