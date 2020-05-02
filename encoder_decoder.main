@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <iomanip>
 #include <string>
 
 // makes it so that "std::" doesn't have to be entered before the commands
